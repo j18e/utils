@@ -11,7 +11,10 @@ import (
 type HTTPServer struct {
 	Addr    string
 	Handler http.Handler
-	Logger  Logger
+
+	// Logger is used for notifying that the server is about to shut down. Can
+	// be nil.
+	Logger Logger
 }
 
 // ListenAndServe starts the http.Server running and listens for the given
