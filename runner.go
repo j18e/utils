@@ -38,7 +38,9 @@ func (r *Runner) Run(logger Logger) error {
 		}()
 	}
 	err := <-errchan
-	logger.Errorf("shutting down due to: %s", err)
+	if logger != nil {
+		logger.Errorf("shutting down due to: %s", err)
+	}
 	cancel()
 	for i := 0; i < len(r.funcs)-1; i++ {
 		<-errchan

@@ -28,7 +28,9 @@ func (s HTTPServer) ListenAndServe(ctx context.Context, shutdownTimeout time.Dur
 	case <-ctx.Done():
 		shutdownCtx, cancel := context.WithTimeout(context.Background(), shutdownTimeout)
 		defer cancel()
-		s.Logger.Info("shutting down http server")
+		if s.Logger != nil {
+			s.Logger.Info("shutting down http server")
+		}
 		if err := srv.Shutdown(shutdownCtx); err != nil {
 			return err
 		}
